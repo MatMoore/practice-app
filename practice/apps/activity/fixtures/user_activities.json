@@ -1,0 +1,81 @@
+[
+{
+    "pk": 1,
+    "fields": {
+        "name": "never_practiced"
+    },
+    "model": "activity.activity"
+},
+{
+    "pk": 1,
+    "fields": {
+        "activity": 1,
+        "last_checkin": null
+    },
+    "model": "activity.useractivity"
+},
+{
+    "pk": 2,
+    "fields": {
+        "name": "first_practiced_2000"
+    },
+    "model": "activity.activity"
+},
+{
+    "pk": 2,
+    "fields": {
+        "activity": 2,
+        "last_checkin": "2000-01-01 07:00:00Z",
+        "streak_first_checkin": "2000-01-01 07:00:00Z"
+    },
+    "model": "activity.useractivity"
+},
+{
+    "pk": 3,
+    "fields": {
+        "name": "streak_extended_2000"
+    },
+    "model": "activity.activity"
+},
+{
+    "pk": 3,
+    "fields": {
+        "activity": 3,
+        "last_checkin": "2000-01-01 07:00:00Z",
+        "streak_first_checkin": "1999-01-01 07:00:00Z"
+    },
+    "model": "activity.useractivity"
+},
+{
+    "pk": 4,
+    "fields": {
+        "name": "streak_not_extended_2000"
+    },
+    "model": "activity.activity"
+},
+{
+    "pk": 4,
+    "fields": {
+        "activity": 4,
+        "last_checkin": "1999-12-31 07:00:00Z",
+        "streak_first_checkin": "1999-01-01 07:00:00Z"
+    },
+    "model": "activity.useractivity"
+},
+{
+    "pk": 5,
+    "fields": {
+        "name": "streak_broken_2000"
+    },
+    "model": "activity.activity"
+},
+{
+    "pk": 5,
+    "fields": {
+        "activity": 5,
+        "last_checkin": "1999-12-30 07:00:00Z",
+        "streak_first_checkin": "1999-01-01 07:00:00Z"
+    },
+    "model": "activity.useractivity"
+}
+]

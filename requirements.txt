@@ -1,3 +1,5 @@
 Django==1.6.2
 South==0.8.4
 psycopg2==2.5.2
+#freezegun==0.1.13
+pytz==2013.9
