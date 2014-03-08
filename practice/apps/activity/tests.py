@@ -2,7 +2,7 @@ from django.test import TestCase
 from .models import UserActivity as UA
 from freezegun import freeze_time
 
-#@freeze_time('2000-01-01 12:00:00')
+@freeze_time('2000-01-01 12:00:00')
 class StreakTest(TestCase):
     fixtures = ['user_activities.json']
 
@@ -12,6 +12,7 @@ class StreakTest(TestCase):
         self.extended_today = UA.objects.get(activity__name='streak_extended_2000')
         self.not_extended_today = UA.objects.get(activity__name='streak_not_extended_2000')
         self.no_streak = UA.objects.get(activity__name='streak_broken_2000')
+        super(StreakTest, self).setUp()
 
     # Initial conditions
     def test_never_practiced(self):
@@ -24,11 +25,11 @@ class StreakTest(TestCase):
 
     def test_extended_today(self):
         self.assertTrue(self.extended_today.is_streak())
-        self.assertEqual(self.extended_today.current_streak(), 2)
+        self.assertEqual(self.extended_today.current_streak(), 366)
 
     def test_not_extended_today(self):
         self.assertTrue(self.not_extended_today.is_streak())
-        self.assertEqual(self.not_extended_today.current_streak(), 1)
+        self.assertEqual(self.not_extended_today.current_streak(), 365)
 
     def test_no_streak(self):
         self.assertFalse(self.no_streak.is_streak())
