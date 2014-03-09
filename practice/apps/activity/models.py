@@ -22,16 +22,27 @@ class UserActivity(models.Model):
     last_checkin = models.DateTimeField(null=True)
     swag = models.IntegerField(default=100)
 
-    def is_streak(self):
-        """Has this been practiced in the last day?
+    def days_since_last_checkin(self):
+        """The number of full days since last checkin.
         We consider the current day to start from 5AM local time.
-        Note that this can be more than 24 hours ago!"""
+        Note that this can be more than 24 hours ago!
+        """
         # TODO use local timezone
-        if not self.last_checkin:
-            return False
         checkin_date = (self.last_checkin - datetime.timedelta(hours=5)).date()
         today = datetime.date.today()
-        return (today - checkin_date).days <= 1
+        return (today - checkin_date).days
+
+    def is_streak(self):
+        '''Has this been practiced today or yesterday?'''
+        if not self.last_checkin:
+            return False
+        return self.days_since_last_checkin() <= 1
+
+    def streak_continued_today(self):
+        '''Has this been practiced today?'''
+        if not self.last_checkin:
+            return False
+        return self.days_since_last_checkin() == 0
 
     def current_streak(self):
         '''Length of current streak in days.'''
@@ -46,3 +57,4 @@ class UserActivity(models.Model):
             self.streak_first_checkin = now
         self.last_checkin = now
         self.swag += swag
+        self.save()
