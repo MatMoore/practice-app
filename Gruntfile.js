@@ -188,7 +188,7 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= config.app %>/index.html'],
                 ignorePath: '<%= config.app %>/',
-                exclude: ['<%= config.app %>/bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap.js']
+                exclude: ['<%= config.app %>/bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap.js', '<%= config.app %>/requireconfig.js']
             },
             sass: {
                 src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
@@ -218,7 +218,7 @@ module.exports = function (grunt) {
             options: {
                 dest: '<%= config.dist %>'
             },
-            html: '<%= config.app %>/index.html'
+            html: '<%= config.app %>/*.html'
         },
 
         // Performs rewrites based on rev and the useminPrepare configuration
@@ -355,6 +355,17 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: '.',
+                    mainConfigFile: '<%= config.app %>/scripts/requireconfig.js',
+                    name: '<%= config.app %>/bower_components/pluralize/pluralize.js',
+                    out: '<%= config.dist %>/scripts/pluralize.js'
+                }
+            }
         }
     });
 
@@ -405,7 +416,8 @@ module.exports = function (grunt) {
         'modernizr',
         'rev',
         'usemin',
-        'htmlmin'
+        'htmlmin',
+        'requirejs'
     ]);
 
     grunt.registerTask('default', [

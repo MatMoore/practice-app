@@ -18,11 +18,9 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
     </head>
@@ -44,16 +42,16 @@
 
             <div class="page-header">
                 <h1>Code the site <small>So I can use it <span id="checkedIn" class="hidden glyphicon glyphicon-ok text-success"></span></small></h1>
-                <h4>10,000 other people are doing this</h4>
+                <h4 id="currentStreak" class="hidden">Current streak: <span id="currentStreakDays">0 days</span></h4>
             </div>
 
             <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-                <button id="checkin" class="btn btn-success btn-lg" type="button">
-                    Check in
-                </button>
+                <div class="btn-group">
+                    <button id="checkin" class="btn btn-success btn-lg" type="button">
+                        Check in
+                    </button>
+                </div>
             </div>
-        </div>
 
             <div id="postBox" class="collapse well">
                 <p class="alert-success alert">You rock!</p>
@@ -85,18 +83,6 @@
         -->
 
         <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
-        <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({static,.tmp}) scripts/main.js -->
@@ -114,8 +100,23 @@
                 });
             }
 
-            $(function() {
-                $('#checkin').on('click', checkin);
+            function initialiseActivity() {
+                activityApi.get(1).done(function(data) {
+                    if(data.streak_continued_today) {
+                        $('#checkedIn').removeClass('hidden');
+                        var currentStreak = pluralize('day', data.current_streak, true);
+                        $('#currentStreakDays').text(currentStreak);
+                        $('#currentStreak').removeClass('hidden');
+                    }
+                });
+            }
+
+            require(['pluralize'], function(pluralize) {
+                $(function() {
+                    $('#checkin').on('click', checkin);
+
+                    initialiseActivity();
+                });
             });
         </script>
 </body>

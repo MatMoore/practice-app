@@ -18,5 +18,13 @@ var activityApi = {
             url: this.activityUrl(activityId) + 'checkins/',
             dataType: 'json'
         });
+    },
+
+    get: function(activityId) {
+        return $.ajax({
+            type: 'GET',
+            url: this.activityUrl(activityId),
+            dataType: 'json'
+        });
     }
 };
