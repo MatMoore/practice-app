@@ -100,24 +100,22 @@
                 });
             }
 
-            function initialiseActivity() {
-                activityApi.get(1).done(function(data) {
-                    if(data.streak_continued_today) {
-                        $('#checkedIn').removeClass('hidden');
-                        var currentStreak = pluralize('day', data.current_streak, true);
-                        $('#currentStreakDays').text(currentStreak);
-                        $('#currentStreak').removeClass('hidden');
-                    }
-                });
-            }
+           function initialiseActivity() {
+               activityApi.get(1).done(function(data) {
+                   if(data.streak_continued_today) {
+                       $('#checkedIn').removeClass('hidden');
+                       var currentStreak = pluralize('day', data.current_streak, true);
+                       $('#currentStreakDays').text(currentStreak);
+                       $('#currentStreak').removeClass('hidden');
+                   }
+               });
+           }
 
-            require(['pluralize'], function(pluralize) {
-                $(function() {
-                    $('#checkin').on('click', checkin);
+           $(function() {
+               $('#checkin').on('click', checkin);
 
-                    initialiseActivity();
-                });
-            });
+               initialiseActivity();
+           });
         </script>
 </body>
 </html>
