@@ -77,6 +77,19 @@ body {
     box-shadow: 0px 0px 0px #fff;
 }
 
+.day {
+    margin: 1px;
+    fill: #ddd;
+    stroke: #ccc;
+}
+
+.selected-day-text {
+    text-anchor:middle;
+    vertical-align:middle;
+    font-size: 14px;
+    stroke: $state-success-text;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {

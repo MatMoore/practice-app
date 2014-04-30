@@ -43,6 +43,7 @@
             <div class="page-header">
                 <h1>Code the site <small>So I can use it <span id="checkedIn" class="hidden glyphicon glyphicon-ok text-success"></span></small></h1>
                 <h4 id="currentStreak" class="hidden">Current streak: <span id="currentStreakDays">0 days</span></h4>
+                <div id="month"/>
             </div>
 
             <div class="btn-group btn-group-justified">
@@ -86,8 +87,8 @@
         <!-- endbuild -->
 
         <!-- build:js({static,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
         <!-- endbuild -->
+        <script src="http://mbostock.github.com/d3/d3.js?2.10.2"></script>
         <script>
             function checkin() {
                 var checkin = $(this);
@@ -108,6 +109,7 @@
                        $('#currentStreakDays').text(currentStreak);
                        $('#currentStreak').removeClass('hidden');
                    }
+                   drawMonthWidget('#month', data.current_streak);
                });
            }
 
